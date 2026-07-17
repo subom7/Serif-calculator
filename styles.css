@@ -8,14 +8,14 @@ body{
 }
 
 .left-side-div {
-    background-color: rgb(255, 221, 0);
+    background-color: #fff7f1;
     display: inline-block;
     height: 100dvh;
     width: 100%;
 }
 
 .right-side-div{
-    background-color: brown;
+    background-color: #F1E7DF;
     display: grid;
     grid-template-rows: repeat(5, 1fr);
     grid-template-columns: repeat(4, 1fr);
@@ -28,6 +28,19 @@ body{
 .calculator-button {
     border: none;
     aspect-ratio: 1/1;
-    background-color: transparent;
+    background-color: #A76443;
+    font-size: 3.5rem;
+    border-radius: 12px;
+    font-family: "Playfair Display", serif;
+    /* font-weight: bold; */
+    color: #ffeee6;
+    box-shadow: 5px 5px 5px 0px #00000032;
+}
+
+.button-delete {
     font-size: 3rem;
+}
+
+.calculator-button:hover {
+    font-weight: bold;
 }
