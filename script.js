@@ -3,7 +3,7 @@ const equationElement = document.querySelector('.js-equation');
 addButtonClickListeners();
 
 document.addEventListener('keydown', (key) => {
-    // console.log(key.key);
+    console.log(key.key);
     if(key.key === '0') {
         zero();
     }else if(Number.isInteger(Number(key.key))) {
@@ -52,6 +52,10 @@ function addButtonClickListeners() {
     document.querySelector('.button-minus').addEventListener('click', () => {
         minus();
     });
+
+    document.querySelector('.button-parenthesis').addEventListener('click', () => {
+        parenthesis();
+    });
 }
 
 function appendValue(value) {
@@ -72,7 +76,25 @@ function backSpace() {
 function zero() {
     const operands = equationElement.innerHTML.split(/[+\-%/*()]/);
     const lastOperand = operands.at(-1);
+
+    console.log(operands);
+    console.log(lastOperand);
+
+    console.log('(lastOperand).includes(".")');
+    console.log((lastOperand).includes("."));
+
+
+    console.log('Number(lastOperand) > 0');
+    console.log(Number(lastOperand) > 0);
+
+
+    console.log('Number(lastOperand) < 0');
+    console.log(Number(lastOperand) < 0);
+
+
     if((lastOperand).includes(".") || Number(lastOperand) > 0 || Number(lastOperand) < 0) {
+        appendValue(0);
+    }else if(lastOperand === '') {
         appendValue(0);
     }
 }
@@ -108,4 +130,27 @@ function minus() {
     } else {
         equationElement.innerHTML = equationElement.innerHTML.slice(0, -1) + '-';
     }
+}
+
+function parenthesis() {
+    const openBracket = equationElement.innerHTML.lastIndexOf('(');
+    const closeBracket = equationElement.innerHTML.lastIndexOf(')');
+
+    console.log(openBracket);
+    console.log(closeBracket);
+
+    let isParenthesisOpen = false;
+
+    if (openBracket === closeBracket) {
+        isParenthesisOpen = false;
+    } else if(openBracket > closeBracket) {
+        isParenthesisOpen = true;
+    }
+
+    if(isParenthesisOpen){
+        appendValue(")");
+    } else {
+        appendValue('(');
+    }
+    // isParenthesisOpen = !isParenthesisOpen;
 }
