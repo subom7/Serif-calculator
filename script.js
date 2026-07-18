@@ -36,6 +36,10 @@ function addButtonClickListeners() {
     document.querySelector('.button-point').addEventListener('click', () => {
         point();
     });
+
+    document.querySelector('.button-ac').addEventListener('click', () => {
+        clear();
+    });
 }
 
 function appendValue(value) {
@@ -72,4 +76,8 @@ function point() {
     if(!lastOperand.includes('.')) {
         equationElement.innerHTML += '.';
     }
+}
+
+function clear() {
+    equationElement.innerHTML = '0';
 }
