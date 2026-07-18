@@ -1,3 +1,7 @@
+import { noOfRepetitions } from "./utils/string-utils.js";
+
+
+
 const equationElement = document.querySelector('.js-equation');
 
 addButtonClickListeners();
@@ -77,19 +81,19 @@ function zero() {
     const operands = equationElement.innerHTML.split(/[+\-%/*()]/);
     const lastOperand = operands.at(-1);
 
-    console.log(operands);
-    console.log(lastOperand);
+    // console.log(operands);
+    // console.log(lastOperand);
 
-    console.log('(lastOperand).includes(".")');
-    console.log((lastOperand).includes("."));
-
-
-    console.log('Number(lastOperand) > 0');
-    console.log(Number(lastOperand) > 0);
+    // console.log('(lastOperand).includes(".")');
+    // console.log((lastOperand).includes("."));
 
 
-    console.log('Number(lastOperand) < 0');
-    console.log(Number(lastOperand) < 0);
+    // console.log('Number(lastOperand) > 0');
+    // console.log(Number(lastOperand) > 0);
+
+
+    // console.log('Number(lastOperand) < 0');
+    // console.log(Number(lastOperand) < 0);
 
 
     if((lastOperand).includes(".") || Number(lastOperand) > 0 || Number(lastOperand) < 0) {
@@ -133,24 +137,16 @@ function minus() {
 }
 
 function parenthesis() {
-    const openBracket = equationElement.innerHTML.lastIndexOf('(');
-    const closeBracket = equationElement.innerHTML.lastIndexOf(')');
-
-    console.log(openBracket);
-    console.log(closeBracket);
-
-    let isParenthesisOpen = false;
-
-    if (openBracket === closeBracket) {
-        isParenthesisOpen = false;
-    } else if(openBracket > closeBracket) {
-        isParenthesisOpen = true;
-    }
-
-    if(isParenthesisOpen){
-        appendValue(")");
-    } else {
+    if(("/*-+(%").includes(equationElement.innerHTML.at(-1))) {
         appendValue('(');
+        return;
     }
-    // isParenthesisOpen = !isParenthesisOpen;
+    
+    if(('0123456789.)').includes(equationElement.innerHTML.at(-1))) {
+        if(noOfRepetitions(equationElement.innerHTML, '(') > noOfRepetitions(equationElement.innerHTML, ')')) {
+            appendValue(')');
+        } else if((noOfRepetitions(equationElement.innerHTML, '(') == noOfRepetitions(equationElement.innerHTML, '('))) {
+            appendValue('(');
+        }
+    }
 }
