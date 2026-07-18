@@ -22,6 +22,7 @@ body{
     height: 100dvh;
     gap: 15px;
     padding: 15px;
+    padding-top: 60px;
     box-sizing: border-box;
 }
 
@@ -32,9 +33,9 @@ body{
     font-size: 3.5rem;
     border-radius: 12px;
     font-family: "Playfair Display", serif;
-    /* font-weight: bold; */
     color: #ffeee6;
     box-shadow: 5px 5px 5px 0px #00000032;
+    cursor: pointer;
 }
 
 .button-delete {
@@ -43,4 +44,127 @@ body{
 
 .calculator-button:hover {
     font-weight: bold;
+}
+
+
+.left-side-div {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+.div-results-container{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    padding: 30px 20px;
+    height: 14rem;
+}
+
+.result, .equation-active{
+    font-size: 8rem;
+    color: rgb(92, 92, 92);
+    font-family: "Playfair Display", serif;
+    font-weight: lighter;
+    height: 10rem;
+}
+
+.result{
+    display: none;
+}
+
+.equation{
+    font-size: 2rem;
+    color: rgb(125, 125, 125);
+    font-family: "Playfair Display", serif;
+    font-weight: lighter;
+    transform: translateY(-10px);
+    height: 3rem;
+}
+
+.div-divider {
+    display: flex;
+    justify-content: end;
+}
+
+.div-divider, .div-history-and-scientific {
+    background-color: #f5f1ee;
+}
+
+.div-divider{
+    padding: 10px 20px 10px 0;
+}
+
+.div-history-and-scientific {
+    flex: 1;  
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.div-history {
+}
+
+.button-in-divider {
+    background-color: rgb(180, 180, 180);
+    border: none;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    color: white;
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+}
+
+.button-in-divider:hover {
+    background-color: rgb(147, 147, 147);
+}
+
+.button-toggle-scientific, .button-settings {
+    margin-left: 10px;
+}
+
+.history-item-container {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding: 10px 20px 10px 0;
+    justify-content: center;
+}
+
+.history-delete-container{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    color: rgb(113, 109, 106);
+}
+
+.history-delete-container {
+    opacity: 0;
+}
+
+.history-delete-container:hover~.history-delete-container {
+    opacity: 1;
+}
+
+.history-text-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.history-result {
+    font-family: "Playfair Display", serif;
+    font-size: 2rem;
+    color: rgb(113, 109, 106);
+}
+
+.history-equation {
+    font-family: "Playfair Display", serif;
+    font-size: 1.2rem;
+    color: rgb(163, 157, 152);           
 }
