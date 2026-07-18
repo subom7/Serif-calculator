@@ -39,7 +39,7 @@ function addButtonClickListeners() {
 }
 
 function appendValue(value) {
-    if((equationElement.innerHTML !== '0') || (value === '.')) {
+    if((equationElement.innerHTML !== '0')) {
         equationElement.innerHTML += value;
     } else {
         equationElement.innerHTML = value;
@@ -62,9 +62,14 @@ function zero() {
 }
 
 function point() {
+    if(("/*-+()%").includes(equationElement.innerHTML.at(-1))) {
+        appendValue('0.');
+        return;
+    }
+
     const operands = equationElement.innerHTML.split(/[+\-%/*()]/);
     const lastOperand = operands.at(-1);
     if(!lastOperand.includes('.')) {
-        appendValue('.');
+        equationElement.innerHTML += '.';
     }
 }
