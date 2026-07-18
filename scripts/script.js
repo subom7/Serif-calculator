@@ -149,17 +149,21 @@ function minus() {
 }
 
 function multiply() {
-    if(!("/*-+()%").includes(equationElement.innerHTML.at(-1))) {
+    if((")%1234567890.").includes(equationElement.innerHTML.at(-1))) {
         equationElement.innerHTML += '*';
-    } else {
+    } else if(equationElement.innerHTML.at(-1) === '(') {
+        return;
+    } else if (("/*-+").includes(equationElement.innerHTML.at(-1))) {
         equationElement.innerHTML = equationElement.innerHTML.slice(0, -1) + '*';
     }
 }
 
 function divide() {
-    if(!("/*-+()%").includes(equationElement.innerHTML.at(-1))) {
+    if((")%1234567890.").includes(equationElement.innerHTML.at(-1))) {
         equationElement.innerHTML += '/';
-    } else {
+    } else if(equationElement.innerHTML.at(-1) === '(') {
+        return;
+    } else if (("/*-+").includes(equationElement.innerHTML.at(-1))) {
         equationElement.innerHTML = equationElement.innerHTML.slice(0, -1) + '/';
     }
 }
