@@ -12,6 +12,10 @@ document.addEventListener('keydown', (key) => {
         backSpace();
     }else if(key.key === '.') {
         point();
+    }else if(key.key === "+") {
+        plus();
+    }else if(key.key === "-") {
+        minus();
     }
 });
 
@@ -39,6 +43,14 @@ function addButtonClickListeners() {
 
     document.querySelector('.button-ac').addEventListener('click', () => {
         clear();
+    });
+
+    document.querySelector('.button-plus').addEventListener('click', () => {
+        plus();
+    });
+
+    document.querySelector('.button-minus').addEventListener('click', () => {
+        minus();
     });
 }
 
@@ -80,4 +92,20 @@ function point() {
 
 function clear() {
     equationElement.innerHTML = '0';
+}
+
+function plus() {
+    if(!("/*-+%").includes(equationElement.innerHTML.at(-1))) {
+        equationElement.innerHTML += '+';
+    } else {
+        equationElement.innerHTML = equationElement.innerHTML.slice(0, -1) + '+';
+    }
+}
+
+function minus() {
+    if(!("/*-+%").includes(equationElement.innerHTML.at(-1))) {
+        equationElement.innerHTML += '-';
+    } else {
+        equationElement.innerHTML = equationElement.innerHTML.slice(0, -1) + '-';
+    }
 }
