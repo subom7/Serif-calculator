@@ -20,6 +20,10 @@ document.addEventListener('keydown', (key) => {
         plus();
     }else if(key.key === "-") {
         minus();
+    }else if(key.key === "*") {
+        multiply();
+    }else if(key.key === "/") {
+        divide();
     }
 });
 
@@ -59,6 +63,14 @@ function addButtonClickListeners() {
 
     document.querySelector('.button-parenthesis').addEventListener('click', () => {
         parenthesis();
+    });
+
+    document.querySelector('.button-multiply').addEventListener('click', () => {
+        multiply();
+    });
+
+    document.querySelector('.button-divide').addEventListener('click', () => {
+        divide();
     });
 }
 
@@ -133,6 +145,22 @@ function minus() {
         equationElement.innerHTML += '-';
     } else {
         equationElement.innerHTML = equationElement.innerHTML.slice(0, -1) + '-';
+    }
+}
+
+function multiply() {
+    if(!("/*-+()%").includes(equationElement.innerHTML.at(-1))) {
+        equationElement.innerHTML += '*';
+    } else {
+        equationElement.innerHTML = equationElement.innerHTML.slice(0, -1) + '*';
+    }
+}
+
+function divide() {
+    if(!("/*-+()%").includes(equationElement.innerHTML.at(-1))) {
+        equationElement.innerHTML += '/';
+    } else {
+        equationElement.innerHTML = equationElement.innerHTML.slice(0, -1) + '/';
     }
 }
 
