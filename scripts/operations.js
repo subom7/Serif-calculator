@@ -98,7 +98,7 @@ export const operations = {
 
     point: function() {
         if(("/*-+()%").includes(equationElement.innerHTML.at(-1))) {
-            equationElement.innerHTML = '0.';
+            equationElement.innerHTML += '0.';
             return;
         }
 
