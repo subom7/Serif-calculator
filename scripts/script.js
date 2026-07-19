@@ -24,7 +24,7 @@ document.addEventListener('keydown', (key) => {
     }else if(key.key === "/") {
         operations.divide();
     }else if(key.key === "%") {
-        operations.appendValue('%');
+        equationElement.innerHTML += '%';
     }else if((key.key === ")")  || (key.key === "(") ){
         operations.parenthesis();
     }else if(key.key === "Enter") {
@@ -79,7 +79,7 @@ function addButtonClickListeners() {
     });
 
     document.querySelector('.button-percent').addEventListener('click', () => {
-        operations.appendValue('%');
+        equationElement.innerHTML += '%';
     });
 
     document.querySelector('.button-equals').addEventListener('click', () => {
