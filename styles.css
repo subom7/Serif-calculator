@@ -1,6 +1,7 @@
 *{
     padding: 0;
     margin: 0;
+    font-family: "Playfair Display", serif;
 }
 
 body{
@@ -32,10 +33,10 @@ body{
     background-color: #A76443;
     font-size: 3.5rem;
     border-radius: 12px;
-    font-family: "Playfair Display", serif;
     color: #ffeee6;
-    box-shadow: 5px 5px 5px 0px #00000032;
+    box-shadow: 5px 5px 5px #00000032;
     cursor: pointer;
+    transition: 0.3s ease;
 }
 
 .button-delete {
@@ -43,7 +44,8 @@ body{
 }
 
 .calculator-button:hover {
-    font-weight: bold;
+    background-color: #8c563a;
+    box-shadow: 3px 3px 2px #00000032;
 }
 
 
@@ -62,25 +64,62 @@ body{
     height: 14rem;
 }
 
-.result, .equation-active{
+.result-default{
+    font-size: 0px;
+    height: 0px;
+    color: rgba(92, 92, 92, 0.622);
+}
+
+.result-max{
+    animation: result-animation 0.3s ease normal forwards;
+}
+
+.result-min{
+    animation: result-animation 0.3s ease reverse forwards;
+}
+
+@keyframes result-animation {
+    0% {
+        font-size: 0px;
+        height: 0px;
+        color: rgba(92, 92, 92, 0.622);
+    }
+    100%{
+        font-size: 8rem;
+        height: 10rem;
+        color: rgb(92, 92, 92);
+    }
+}
+
+@keyframes equation-animation {
+    from {
+        font-size: 8rem;
+        color: rgb(92, 92, 92);
+        height: 10rem;
+        transform: translateY(0px);
+    }
+    to{ 
+        font-size: 2rem;
+        color: rgb(125, 125, 125);
+        height: 3rem;
+        transform: translateY(-10px);
+    }
+}
+
+
+.equation-default{
     font-size: 8rem;
     color: rgb(92, 92, 92);
-    font-family: "Playfair Display", serif;
-    font-weight: lighter;
     height: 10rem;
+    transform: translateY(0px);
 }
 
-.result{
-    display: none;
+.equation-max{
+    animation: equation-animation 0.3s ease reverse forwards;
 }
 
-.equation{
-    font-size: 2rem;
-    color: rgb(125, 125, 125);
-    font-family: "Playfair Display", serif;
-    font-weight: lighter;
-    transform: translateY(-10px);
-    height: 3rem;
+.equation-min{
+    animation: equation-animation 0.3s ease normal forwards;
 }
 
 .div-divider {
@@ -158,13 +197,11 @@ body{
 }
 
 .history-result {
-    font-family: "Playfair Display", serif;
     font-size: 2rem;
     color: rgb(113, 109, 106);
 }
 
 .history-equation {
-    font-family: "Playfair Display", serif;
     font-size: 1.2rem;
     color: rgb(163, 157, 152);           
 }

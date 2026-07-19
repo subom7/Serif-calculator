@@ -27,6 +27,8 @@ document.addEventListener('keydown', (key) => {
         operations.appendValue('%');
     }else if((key.key === ")")  || (key.key === "(") ){
         operations.parenthesis();
+    }else if(key.key === "Enter") {
+        operations.equal();
     }
 });
 
@@ -78,5 +80,9 @@ function addButtonClickListeners() {
 
     document.querySelector('.button-percent').addEventListener('click', () => {
         operations.appendValue('%');
+    });
+
+    document.querySelector('.button-equals').addEventListener('click', () => {
+        operations.equal();
     });
 }

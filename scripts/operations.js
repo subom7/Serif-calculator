@@ -46,13 +46,13 @@ export const operations = {
         if(("/*-+(%").includes(equationElement.innerHTML.at(-1))) {
             this.appendValue('(');
             return;
-        }
+        } 
         
         if(('0123456789.)').includes(equationElement.innerHTML.at(-1))) {
             if(noOfRepetitions(equationElement.innerHTML, '(') > noOfRepetitions(equationElement.innerHTML, ')')) {
                 this.appendValue(')');
             } else if((noOfRepetitions(equationElement.innerHTML, '(') == noOfRepetitions(equationElement.innerHTML, '('))) {
-                this.appendValue('(');
+                this.appendValue('*(');
             }
         }
     },
@@ -98,5 +98,23 @@ export const operations = {
 
     clear: function() {
         equationElement.innerHTML = '0';
+    },
+
+    equal: function() {
+        try {
+            const formattedEqun = equationElement.innerHTML.replace('%', '/100');
+            const result = eval(formattedEqun);
+
+
+            const resultElement = document.querySelector('.js-result');
+            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
+            equationElement.classList.add('equation-min');
+            resultElement.classList.remove('result-default', 'result-max', 'result-min');
+            resultElement.classList.add('result-max');
+
+            resultElement.innerHTML = result;
+        } catch (error) {
+            resultElement.innerHTML = 'Error';
+        }
     }
 }
