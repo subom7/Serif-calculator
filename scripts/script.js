@@ -29,6 +29,8 @@ document.addEventListener('keydown', (key) => {
         operations.parenthesis();
     }else if(key.key === "Enter") {
         operations.equal();
+    }else if(key.key === "Delete") {
+        operations.clear();
     }
 });
 

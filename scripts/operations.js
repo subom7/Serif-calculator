@@ -3,6 +3,7 @@ import { noOfRepetitions } from './utils/string-utils.js';
 let resultVisible = false;
 
 const equationElement = document.querySelector('.js-equation');
+const resultElement = document.querySelector('.js-result');
 
 
 export const operations = {
@@ -58,10 +59,19 @@ export const operations = {
     },
 
     appendValue: function(value) {
-        if((equationElement.innerHTML !== '0')) {
-            equationElement.innerHTML += value;
-        } else {
+        if((equationElement.innerHTML === '0')) {
             equationElement.innerHTML = value;
+        } else {
+            if(resultVisible) {
+                equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
+                equationElement.classList.add('equation-max');
+                resultElement.classList.remove('result-default', 'result-max', 'result-min');
+                resultElement.classList.add('result-min');
+                equationElement.innerHTML = value;
+                resultVisible = false;
+            } else {
+                equationElement.innerHTML += value;
+            }
         }
     },
 
@@ -85,19 +95,35 @@ export const operations = {
 
     point: function() {
         if(("/*-+()%").includes(equationElement.innerHTML.at(-1))) {
-            this.appendValue('0.');
+            equationElement.innerHTML = '0.';
             return;
         }
 
-        const operands = equationElement.innerHTML.split(/[+\-%/*()]/);
-        const lastOperand = operands.at(-1);
-        if(!lastOperand.includes('.')) {
-            equationElement.innerHTML += '.';
+        if(resultVisible) {
+            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
+            equationElement.classList.add('equation-max');
+            resultElement.classList.remove('result-default', 'result-max', 'result-min');
+            resultElement.classList.add('result-min');
+            resultVisible = false;
+            equationElement.innerHTML = '0.';
+        } else {
+            const operands = equationElement.innerHTML.split(/[+\-%/*()]/);
+            const lastOperand = operands.at(-1);
+            if(!lastOperand.includes('.')) {
+                equationElement.innerHTML += '.';
+            }
         }
     },
 
     clear: function() {
         equationElement.innerHTML = '0';
+        if(resultVisible) {
+            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
+            equationElement.classList.add('equation-max');
+            resultElement.classList.remove('result-default', 'result-max', 'result-min');
+            resultElement.classList.add('result-min');
+            resultVisible = false;
+        }
     },
 
     equal: function() {
@@ -105,8 +131,6 @@ export const operations = {
             const formattedEqun = equationElement.innerHTML.replace('%', '/100');
             const result = eval(formattedEqun);
 
-
-            const resultElement = document.querySelector('.js-result');
             equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
             equationElement.classList.add('equation-min');
             resultElement.classList.remove('result-default', 'result-max', 'result-min');
