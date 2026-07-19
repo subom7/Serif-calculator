@@ -90,14 +90,3 @@ function addButtonClickListeners() {
         renderHistory();
     });
 }
-
-document.querySelectorAll('.js-history-delete-container').forEach((element) => {
-    element.addEventListener('click', () => {
-        const id = element.dataset.id;
-
-        console.log(`.js-history-item-${id}`)
-        document.querySelector(`.js-history-item-${id}`).remove();
-
-        deleteHistory(id);
-    });
-});

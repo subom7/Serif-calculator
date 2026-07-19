@@ -18,6 +18,13 @@ export function renderHistory() {
     });
 
     document.querySelector('.div-history').innerHTML = historyHTML;
+
+    document.querySelectorAll('.js-history-delete-container').forEach((element) => {
+        element.addEventListener('click', () => {
+            const id = element.dataset.id;
+            deleteHistory(id);
+        });
+    });
 }
 
 export function addHistory(result, equation) {
@@ -31,13 +38,15 @@ export function addHistory(result, equation) {
 }
 
 export function deleteHistory(id) {
-    let newList;
+    let newList = [];
     calculationHistory.forEach((element) => {
         if(element.id !== id) {
             newList.push(element);
         }
     });
+
     calculationHistory = newList;
+    renderHistory();
 
     localStorage.setItem('history', JSON.stringify(calculationHistory));
 }
