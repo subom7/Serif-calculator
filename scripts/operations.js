@@ -51,7 +51,9 @@ export const operations = {
         } 
         
         if(('0123456789.)').includes(equationElement.innerHTML.at(-1))) {
-            if(noOfRepetitions(equationElement.innerHTML, '(') > noOfRepetitions(equationElement.innerHTML, ')')) {
+            if(equationElement.innerHTML === '0') {
+                equationElement.innerHTML = '(';
+            } else if(noOfRepetitions(equationElement.innerHTML, '(') > noOfRepetitions(equationElement.innerHTML, ')')) {
                 this.appendValue(')');
             } else if((noOfRepetitions(equationElement.innerHTML, '(') == noOfRepetitions(equationElement.innerHTML, '('))) {
                 this.appendValue('*(');
