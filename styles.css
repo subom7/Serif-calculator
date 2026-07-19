@@ -179,9 +179,6 @@ body{
     min-height: 0;
 }
 
-.div-history {
-}
-
 .button-in-divider {
     background-color: rgb(180, 180, 180);
     border: none;
@@ -212,18 +209,18 @@ body{
 .history-delete-container{
     width: 50px;
     height: 50px;
+    margin-left: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.4rem;
     color: rgb(113, 109, 106);
-}
-
-.history-delete-container {
+    transition: opacity 0.2s ease;
     opacity: 0;
+    cursor: pointer;
 }
 
-.history-delete-container:hover~.history-delete-container {
+.history-item-container:hover .history-delete-container {
     opacity: 1;
 }
 

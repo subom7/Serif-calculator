@@ -5,12 +5,12 @@ export function renderHistory() {
 
     calculationHistory.forEach((element) => {
         historyHTML += `
-        <div class="history-item-container">
+        <div class="history-item-container js-history-item-${element.id}">
                     <div class="history-text-container">
                         <p class="history-result">${element.result}</p>
                         <p class="history-equation">${element.equation}</p>
                     </div>
-                    <div class="history-delete-container">
+                    <div class="history-delete-container js-history-delete-container" data-id="${element.id}">
                         <i class="fa-solid fa-xmark"></i>
                     </div>
                 </div>
@@ -21,7 +21,23 @@ export function renderHistory() {
 }
 
 export function addHistory(result, equation) {
-    calculationHistory.unshift({result: result, equation: equation});
+    calculationHistory.unshift({
+        id: Math.random().toString().replace('.', ''),
+        result: result,
+        equation: equation
+    });
     renderHistory();
+    localStorage.setItem('history', JSON.stringify(calculationHistory));
+}
+
+export function deleteHistory(id) {
+    let newList;
+    calculationHistory.forEach((element) => {
+        if(element.id !== id) {
+            newList.push(element);
+        }
+    });
+    calculationHistory = newList;
+
     localStorage.setItem('history', JSON.stringify(calculationHistory));
 }
