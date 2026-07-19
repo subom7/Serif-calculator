@@ -1,6 +1,6 @@
 import { noOfRepetitions } from './utils/string-utils.js';
 
-
+let resultVisible = false;
 
 const equationElement = document.querySelector('.js-equation');
 
@@ -111,6 +111,8 @@ export const operations = {
             equationElement.classList.add('equation-min');
             resultElement.classList.remove('result-default', 'result-max', 'result-min');
             resultElement.classList.add('result-max');
+
+            resultVisible = true;
 
             resultElement.innerHTML = result;
         } catch (error) {
