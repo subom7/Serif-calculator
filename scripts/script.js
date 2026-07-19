@@ -24,6 +24,10 @@ document.addEventListener('keydown', (key) => {
         multiply();
     }else if(key.key === "/") {
         divide();
+    }else if(key.key === "%") {
+        appendValue('%');
+    }else if((key.key === ")")  || (key.key === "(") ){
+        parenthesis();
     }
 });
 
@@ -71,6 +75,10 @@ function addButtonClickListeners() {
 
     document.querySelector('.button-divide').addEventListener('click', () => {
         divide();
+    });
+
+    document.querySelector('.button-percent').addEventListener('click', () => {
+        appendValue('%');
     });
 }
 
