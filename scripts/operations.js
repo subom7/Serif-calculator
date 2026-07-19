@@ -10,10 +10,10 @@ const resultElement = document.querySelector('.js-result');
 export const operations = {
     plus: function() {
         if(resultVisible) {
-            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
-            equationElement.classList.add('equation-default');
-            resultElement.classList.remove('result-default', 'result-max', 'result-min');
-            resultElement.classList.add('result-default');
+            
+            setDisplayState(equationElement, "equation", "default");
+            setDisplayState(resultElement, "result", "default");
+            
             equationElement.innerHTML = resultElement.innerHTML+'+';
             resultVisible = false;
         } else if(!("/*-+%").includes(equationElement.innerHTML.at(-1))) {
@@ -25,10 +25,10 @@ export const operations = {
 
     minus: function() {
         if(resultVisible) {
-            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
-            equationElement.classList.add('equation-default');
-            resultElement.classList.remove('result-default', 'result-max', 'result-min');
-            resultElement.classList.add('result-default');
+            
+            setDisplayState(equationElement, "equation", "default");
+            setDisplayState(resultElement, "result", "default");
+            
             equationElement.innerHTML = resultElement.innerHTML+'-';
             resultVisible = false;
         } else if(!("/*-+%").includes(equationElement.innerHTML.at(-1))) {
@@ -40,10 +40,10 @@ export const operations = {
 
     multiply: function() {
         if(resultVisible) {
-            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
-            equationElement.classList.add('equation-default');
-            resultElement.classList.remove('result-default', 'result-max', 'result-min');
-            resultElement.classList.add('result-default');
+            
+            setDisplayState(equationElement, "equation", "default");
+            setDisplayState(resultElement, "result", "default");
+            
             equationElement.innerHTML = resultElement.innerHTML+'*';
             resultVisible = false;
         } else if((")%1234567890.").includes(equationElement.innerHTML.at(-1))) {
@@ -57,10 +57,10 @@ export const operations = {
 
     divide: function() {
         if(resultVisible) {
-            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
-            equationElement.classList.add('equation-default');
-            resultElement.classList.remove('result-default', 'result-max', 'result-min');
-            resultElement.classList.add('result-default');
+            
+            setDisplayState(equationElement, "equation", "default");
+            setDisplayState(resultElement, "result", "default");
+            
             equationElement.innerHTML = resultElement.innerHTML+'/';
             resultVisible = false;
         } else if((")%1234567890.").includes(equationElement.innerHTML.at(-1))) {
@@ -83,7 +83,7 @@ export const operations = {
                 equationElement.innerHTML = '(';
             } else if(noOfRepetitions(equationElement.innerHTML, '(') > noOfRepetitions(equationElement.innerHTML, ')')) {
                 this.appendValue(')');
-            } else if((noOfRepetitions(equationElement.innerHTML, '(') == noOfRepetitions(equationElement.innerHTML, '('))) {
+            } else if((noOfRepetitions(equationElement.innerHTML, '(') == noOfRepetitions(equationElement.innerHTML, ')'))) {
                 this.appendValue('*(');
             }
         }
@@ -118,10 +118,10 @@ export const operations = {
 
     backSpace: function() {
         if(resultVisible) {
-            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
-            equationElement.classList.add('equation-default');
-            resultElement.classList.remove('result-default', 'result-max', 'result-min');
-            resultElement.classList.add('result-default');
+            
+            setDisplayState(equationElement, "equation", "default");
+            setDisplayState(resultElement, "result", "default");
+            
             equationElement.innerHTML = resultElement.innerHTML.slice(0, -1);
             resultVisible = false;
         } else {
@@ -150,10 +150,9 @@ export const operations = {
         }
 
         if(resultVisible) {
-            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
-            equationElement.classList.add('equation-max');
-            resultElement.classList.remove('result-default', 'result-max', 'result-min');
-            resultElement.classList.add('result-min');
+            setDisplayState(equationElement, "equation", "max");
+            setDisplayState(resultElement, "result", "min");
+
             resultVisible = false;
             equationElement.innerHTML = '0.';
         } else {
@@ -168,10 +167,8 @@ export const operations = {
     clear: function() {
         equationElement.innerHTML = '0';
         if(resultVisible) {
-            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
-            equationElement.classList.add('equation-max');
-            resultElement.classList.remove('result-default', 'result-max', 'result-min');
-            resultElement.classList.add('result-min');
+            setDisplayState(equationElement, "equation", "max");
+            setDisplayState(resultElement, "result", "min");
             resultVisible = false;
         }
     },
@@ -180,22 +177,31 @@ export const operations = {
         if(('-+*/').includes(equationElement.innerHTML.at(-1))) {
             equationElement.innerHTML = equationElement.innerHTML.slice(0, -1);
         }
-        const formattedEqun = equationElement.innerHTML.replace('%', '/100');
-        const result = eval(formattedEqun);
 
-        equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
-        equationElement.classList.add('equation-min');
-        resultElement.classList.remove('result-default', 'result-max', 'result-min');
-        resultElement.classList.add('result-max');
+        let result;
+        try {
+            const formattedEqun = equationElement.innerHTML.replaceAll('%', '/100');
+            result = eval(formattedEqun);
+            if (!isFinite(result)) result = 'Error';
+        } catch (error) {
+            result = 'Error';
+        }
+
+
+        setDisplayState(equationElement, "equation", "min");
+        setDisplayState(resultElement, "result", "max");
 
         resultVisible = true;
-
         resultElement.innerHTML = result;
-        addHistory(String(resultElement.innerHTML), String(equationElement.innerHTML));
-        try {
-            
-        } catch (error) {
-            resultElement.innerHTML = 'Error';
+
+        if (result !== 'Error') {
+            addHistory(String(result), String(equationElement.innerHTML));
         }
     }
+}
+
+
+function setDisplayState(element, prefix, state) {
+    element.classList.remove(`${prefix}-default`, `${prefix}-max`, `${prefix}-min`);
+    element.classList.add(`${prefix}-${state}`);
 }

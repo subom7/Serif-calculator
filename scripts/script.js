@@ -11,7 +11,7 @@ document.addEventListener('keydown', (key) => {
     console.log(key.key);
     if(key.key === '0') {
         operations.zero();
-    }else if(Number.isInteger(Number(key.key))) {
+    }else if('0123456789'.includes(key.key)) {
         operations.appendValue(key.key);
     }else if(key.key === 'Backspace') {
         operations.backSpace();
