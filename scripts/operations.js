@@ -9,7 +9,14 @@ const resultElement = document.querySelector('.js-result');
 
 export const operations = {
     plus: function() {
-        if(!("/*-+%").includes(equationElement.innerHTML.at(-1))) {
+        if(resultVisible) {
+            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
+            equationElement.classList.add('equation-default');
+            resultElement.classList.remove('result-default', 'result-max', 'result-min');
+            resultElement.classList.add('result-default');
+            equationElement.innerHTML = resultElement.innerHTML+'+';
+            resultVisible = false;
+        } else if(!("/*-+%").includes(equationElement.innerHTML.at(-1))) {
             equationElement.innerHTML += '+';
         } else {
             equationElement.innerHTML = equationElement.innerHTML.slice(0, -1) + '+';
@@ -17,7 +24,14 @@ export const operations = {
     },
 
     minus: function() {
-        if(!("/*-+%").includes(equationElement.innerHTML.at(-1))) {
+        if(resultVisible) {
+            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
+            equationElement.classList.add('equation-default');
+            resultElement.classList.remove('result-default', 'result-max', 'result-min');
+            resultElement.classList.add('result-default');
+            equationElement.innerHTML = resultElement.innerHTML+'-';
+            resultVisible = false;
+        } else if(!("/*-+%").includes(equationElement.innerHTML.at(-1))) {
             equationElement.innerHTML += '-';
         } else {
             equationElement.innerHTML = equationElement.innerHTML.slice(0, -1) + '-';
@@ -25,7 +39,14 @@ export const operations = {
     },
 
     multiply: function() {
-        if((")%1234567890.").includes(equationElement.innerHTML.at(-1))) {
+        if(resultVisible) {
+            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
+            equationElement.classList.add('equation-default');
+            resultElement.classList.remove('result-default', 'result-max', 'result-min');
+            resultElement.classList.add('result-default');
+            equationElement.innerHTML = resultElement.innerHTML+'*';
+            resultVisible = false;
+        } else if((")%1234567890.").includes(equationElement.innerHTML.at(-1))) {
             equationElement.innerHTML += '*';
         } else if(equationElement.innerHTML.at(-1) === '(') {
             return;
@@ -35,7 +56,14 @@ export const operations = {
     },
 
     divide: function() {
-        if((")%1234567890.").includes(equationElement.innerHTML.at(-1))) {
+        if(resultVisible) {
+            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
+            equationElement.classList.add('equation-default');
+            resultElement.classList.remove('result-default', 'result-max', 'result-min');
+            resultElement.classList.add('result-default');
+            equationElement.innerHTML = resultElement.innerHTML+'/';
+            resultVisible = false;
+        } else if((")%1234567890.").includes(equationElement.innerHTML.at(-1))) {
             equationElement.innerHTML += '/';
         } else if(equationElement.innerHTML.at(-1) === '(') {
             return;
@@ -72,6 +100,16 @@ export const operations = {
                 resultElement.classList.add('result-min');
                 equationElement.innerHTML = value;
                 resultVisible = false;
+            } else if(value === 0){
+                const operands = equationElement.innerHTML.split(/[+\-%/*()]/);
+                const lastOperand = operands.at(-1);
+                if(lastOperand === '') {
+                    return;
+                } else if(lastOperand.includes('.')) {
+                    equationElement.innerHTML += value;
+                } else {
+                    equationElement.innerHTML += 0;
+                }
             } else {
                 equationElement.innerHTML += value;
             }
@@ -79,9 +117,18 @@ export const operations = {
     },
 
     backSpace: function() {
-        equationElement.innerHTML = equationElement.innerHTML.slice(0, -1);
-        if (equationElement.innerHTML === '') {
-            equationElement.innerHTML = "0";
+        if(resultVisible) {
+            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
+            equationElement.classList.add('equation-default');
+            resultElement.classList.remove('result-default', 'result-max', 'result-min');
+            resultElement.classList.add('result-default');
+            equationElement.innerHTML = resultElement.innerHTML.slice(0, -1);
+            resultVisible = false;
+        } else {
+            equationElement.innerHTML = equationElement.innerHTML.slice(0, -1);
+            if (equationElement.innerHTML === '') {
+                equationElement.innerHTML = "0";
+            }
         }
     },
 
@@ -130,6 +177,9 @@ export const operations = {
     },
 
     equal: function() {
+        if(('-+*/').includes(equationElement.innerHTML.at(-1))) {
+            equationElement.innerHTML = equationElement.innerHTML.slice(0, -1);
+        }
         const formattedEqun = equationElement.innerHTML.replace('%', '/100');
         const result = eval(formattedEqun);
 
