@@ -1,8 +1,10 @@
 import {operations} from './operations.js';
-
+import { renderHistory } from './history.js';
 
 const equationElement = document.querySelector('.js-equation');
 
+
+renderHistory();
 addButtonClickListeners();
 
 document.addEventListener('keydown', (key) => {
@@ -33,7 +35,6 @@ document.addEventListener('keydown', (key) => {
         operations.clear();
     }
 });
-
 
 function addButtonClickListeners() {
 
@@ -86,5 +87,6 @@ function addButtonClickListeners() {
 
     document.querySelector('.button-equals').addEventListener('click', () => {
         operations.equal();
+        renderHistory();
     });
 }

@@ -1,4 +1,5 @@
 import { noOfRepetitions } from './utils/string-utils.js';
+import { addHistory } from './history.js';
 
 let resultVisible = false;
 
@@ -127,18 +128,20 @@ export const operations = {
     },
 
     equal: function() {
+        const formattedEqun = equationElement.innerHTML.replace('%', '/100');
+        const result = eval(formattedEqun);
+
+        equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
+        equationElement.classList.add('equation-min');
+        resultElement.classList.remove('result-default', 'result-max', 'result-min');
+        resultElement.classList.add('result-max');
+
+        resultVisible = true;
+
+        resultElement.innerHTML = result;
+        addHistory(String(resultElement.innerHTML), String(equationElement.innerHTML));
         try {
-            const formattedEqun = equationElement.innerHTML.replace('%', '/100');
-            const result = eval(formattedEqun);
-
-            equationElement.classList.remove('equation-default', 'equation-max', 'equation-min');
-            equationElement.classList.add('equation-min');
-            resultElement.classList.remove('result-default', 'result-max', 'result-min');
-            resultElement.classList.add('result-max');
-
-            resultVisible = true;
-
-            resultElement.innerHTML = result;
+            
         } catch (error) {
             resultElement.innerHTML = 'Error';
         }
